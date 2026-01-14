@@ -17,6 +17,7 @@ from typing import Any, Callable, Optional, Type
 
 __all__ = [
     "apply",
+    "reset",
 ]
 
 
@@ -69,3 +70,8 @@ def _dttb_threading_excepthook(
 def apply() -> None:
     sys.excepthook = _dttb_sys_excepthook(_sys_excepthook)
     threading.excepthook = _dttb_threading_excepthook(_threading_excepthook)
+
+
+def reset() -> None:
+    sys.excepthook = _sys_excepthook
+    threading.excepthook = _threading_excepthook
