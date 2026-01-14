@@ -3,9 +3,9 @@ name = "dttb"
 version = "0.1.0"
 description = "DateTime TraceBack"
 readme = "README.md"
-authors = [
-    { name = "Rocky Haotian Du", email = "2712479005@qq.com" }
-]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Rocky Haotian Du", email = "2712479005@qq.com" }]
 requires-python = ">=3.8"
 dependencies = []
 
