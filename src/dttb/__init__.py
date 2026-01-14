@@ -35,7 +35,7 @@ _ThreadingExcepthook = Callable[
 
 def _dt() -> None:
     now = dt.datetime.now()
-    print(f"[{now}]", end=" ", file=sys.stderr)
+    print(f"[{now}]", file=sys.stderr)
 
 
 def _dttb_sys_excepthook(
