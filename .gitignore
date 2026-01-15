@@ -1,5 +1,6 @@
 .DS_Store
 .coverage
+.python-version
 .idea/
 .vscode/
 __pycache__/
