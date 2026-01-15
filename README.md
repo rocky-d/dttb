@@ -17,13 +17,13 @@
 
 ## Installation
 
-- uv
+- **uv**
 
 ```sh
 uv add dttb
 ```
 
-- pip
+- **pip**
 
 ```sh
 pip install dttb
