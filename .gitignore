@@ -2,6 +2,10 @@
 .coverage
 .env
 .python-version
+
 .idea/
+.ruff_cache/
+.venv/
 .vscode/
 __pycache__/
+dist/
