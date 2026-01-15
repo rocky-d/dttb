@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "dttb"
-version = "0.2.2"
+version = "0.2.4"
 description = "DateTime TraceBack"
 readme = "README.md"
 license = "MIT"
