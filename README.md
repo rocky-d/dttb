@@ -2,10 +2,11 @@
 
 [![lint](https://github.com/rocky-d/dttb/actions/workflows/lint.yml/badge.svg)](https://github.com/rocky-d/dttb/actions/workflows/lint.yml)
 [![test](https://github.com/rocky-d/dttb/actions/workflows/test.yml/badge.svg)](https://github.com/rocky-d/dttb/actions/workflows/test.yml)
-[![coverage](https://codecov.io/gh/rocky-d/dttb/graph/badge.svg?token=CODECOV_TOKEN)](https://codecov.io/gh/rocky-d/dttb)
+[![coverage](https://img.shields.io/codecov/c/github/rocky-d/dttb)](https://codecov.io/gh/rocky-d/dttb)
 [![pypi](https://img.shields.io/pypi/v/dttb.svg)](https://pypi.org/project/dttb/)
 [![python](https://img.shields.io/pypi/pyversions/dttb.svg)](https://pypi.org/project/dttb/)
 [![license](https://img.shields.io/pypi/l/dttb.svg)](https://github.com/rocky-d/dttb/blob/main/LICENSE)
+[![sponsors](https://img.shields.io/github/sponsors/rocky-d?logo=githubsponsors)](https://github.com/sponsors/rocky-d)
 
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
