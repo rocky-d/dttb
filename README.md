@@ -1,5 +1,8 @@
 # dttb
 
+[![lint](https://github.com/rocky-d/dttb/actions/workflows/lint.yml/badge.svg)](https://github.com/rocky-d/dttb/actions/workflows/lint.yml)
+[![test](https://github.com/rocky-d/dttb/actions/workflows/test.yml/badge.svg)](https://github.com/rocky-d/dttb/actions/workflows/test.yml)
+[![coverage](https://codecov.io/gh/rocky-d/dttb/graph/badge.svg?token=CODECOV_TOKEN)](https://codecov.io/gh/rocky-d/dttb)
 [![pypi](https://img.shields.io/pypi/v/dttb.svg)](https://pypi.org/project/dttb/)
 [![python](https://img.shields.io/pypi/pyversions/dttb.svg)](https://pypi.org/project/dttb/)
 [![license](https://img.shields.io/pypi/l/dttb.svg)](https://github.com/rocky-d/dttb/blob/main/LICENSE)
