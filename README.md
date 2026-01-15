@@ -20,7 +20,8 @@ dttb.apply()
 ```
 
 ```plaintext
-[2026-01-08 18:11:50.767093] Traceback (most recent call last):
+[2026-01-08 18:11:50.767093]
+Traceback (most recent call last):
   File "/Users/rockydu/Projects/dttb/demo.py", line 5, in <module>
     1 / 0
 ZeroDivisionError: division by zero
