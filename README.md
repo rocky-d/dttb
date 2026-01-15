@@ -15,9 +15,23 @@
 
 **D**ate**T**ime **T**race**B**ack
 
+## Installation
+
+- uv
+
+```sh
+uv add dttb
+```
+
+- pip
+
+```sh
+pip install dttb
+```
+
 ## Usage
 
-- demo1.py
+- **`demo1.py`**
 
 ```python
 import dttb
@@ -27,7 +41,7 @@ dttb.apply()
 1 / 0
 ```
 
-```plaintext
+```text
 [2026-01-15 22:37:09.882049]
 Traceback (most recent call last):
   File "demo1.py", line 5, in <module>
@@ -35,7 +49,7 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-- demo2.py
+- **`demo2.py`**
 
 ```python
 import dttb
@@ -60,7 +74,7 @@ thread2.join()
 func(seconds=3)
 ```
 
-```plaintext
+```text
 [2026-01-15 23:00:03.048290]
 Exception in thread Thread-1:
 Traceback (most recent call last):
