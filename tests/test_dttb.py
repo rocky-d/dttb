@@ -219,3 +219,35 @@ class TestDTTB(unittest.TestCase):
 
         self.assertTrue(len(cm.output) > 0)
         self.assertIn("real thread logging error", cm.output[0])
+
+    def test_context_manager_behavior(
+        self,
+    ) -> None:
+        """Test the dttb context manager applies and resets hooks."""
+        # Before context manager: original hooks
+        self.assertEqual(sys.excepthook, self.orig_sys_hook)
+        self.assertEqual(threading.excepthook, self.orig_threading_hook)
+
+        with dttb.dttb():
+            # Inside context manager: hooks should be changed
+            self.assertNotEqual(sys.excepthook, self.orig_sys_hook)
+            self.assertNotEqual(threading.excepthook, self.orig_threading_hook)
+
+        # After context manager: hooks should be restored
+        self.assertEqual(sys.excepthook, self.orig_sys_hook)
+        self.assertEqual(threading.excepthook, self.orig_threading_hook)
+
+    def test_context_manager_exception_safety(
+        self,
+    ) -> None:
+        """Test if hooks are reset even if exception occurs inside context manager."""
+        try:
+            with dttb.dttb():
+                self.assertNotEqual(sys.excepthook, self.orig_sys_hook)
+                raise RuntimeError("Boom!")
+        except RuntimeError:
+            pass
+
+        # Hooks should be restored
+        self.assertEqual(sys.excepthook, self.orig_sys_hook)
+        self.assertEqual(threading.excepthook, self.orig_threading_hook)
