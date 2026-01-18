@@ -48,7 +48,7 @@ def _log_dttb(
 ) -> None:
     now = dt.datetime.now()
     _logger.error(
-        f"[{now}]\nAn uncaught exception logged by dttb:\n",
+        f"[{now}]\nAn uncaught exception logged by dttb:",
         exc_info=exc_value,
     )
 
