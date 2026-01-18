@@ -2,6 +2,7 @@
 .coverage
 .env
 .python-version
+logging.log
 logging.yaml
 logging.yml
 
@@ -11,3 +12,6 @@ logging.yml
 .vscode/
 __pycache__/
 dist/
+logs/
+temp/
+tmp/
