@@ -2,6 +2,8 @@
 .coverage
 .env
 .python-version
+logging.yaml
+logging.yml
 
 .idea/
 .ruff_cache/
