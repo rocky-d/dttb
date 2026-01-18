@@ -1,4 +1,5 @@
 import io
+import logging
 import sys
 import threading
 import unittest
@@ -148,3 +149,73 @@ class TestDTTB(unittest.TestCase):
         self.assertRegex(output, self.TIMESTAMP_PATTERN)
         # Verify exception message is caught and printed
         self.assertIn("native thread error", output)
+
+    def test_logging_output(
+        self,
+    ) -> None:
+        """Test if exceptions are logged to the dttb logger."""
+        dttb.apply()
+
+        # Use assertLogs to verify logging output
+        with self.assertLogs("dttb", level="ERROR") as cm:
+            sys.excepthook(ValueError, ValueError("logging test"), None)
+
+        self.assertTrue(len(cm.output) > 0)
+        self.assertIn("An uncaught exception logged by dttb", cm.output[0])
+
+        # Test threading logging
+        with self.assertLogs("dttb", level="ERROR") as cm:
+            args = threading.ExceptHookArgs(
+                [ValueError, ValueError("thread logging test"), None, None]
+            )
+            threading.excepthook(args)
+
+        self.assertTrue(len(cm.output) > 0)
+        self.assertIn("An uncaught exception logged by dttb", cm.output[0])
+
+    def test_logger_has_null_handler_by_default(
+        self,
+    ) -> None:
+        """Verify that the logger has a NullHandler by default to prevent 'No handler found' warnings."""
+        logger = logging.getLogger("dttb")
+        # Check if any of the handlers is a NullHandler
+        has_null_handler = any(
+            isinstance(h, logging.NullHandler) for h in logger.handlers
+        )
+        self.assertTrue(has_null_handler, "dttb logger should have a NullHandler")
+
+    @patch("dttb._logger")
+    def test_logging_with_exc_info(
+        self,
+        mock_logger: MagicMock,
+    ) -> None:
+        """Verify that logger.error is called with exc_info=True/Exception."""
+        dttb.apply()
+
+        exc = ValueError("test exc info")
+        sys.excepthook(ValueError, exc, None)
+
+        # Verify logger.error was called
+        mock_logger.error.assert_called_once()
+
+        # Check arguments
+        args, kwargs = mock_logger.error.call_args
+        self.assertIn("An uncaught exception logged by dttb", args[0])
+        self.assertEqual(kwargs.get("exc_info"), exc)
+
+    def test_logging_real_thread_exception(
+        self,
+    ) -> None:
+        """Test if exceptions in real threads are logged to the dttb logger."""
+        dttb.apply()
+
+        def failing_task() -> None:
+            raise ValueError("real thread logging error")
+
+        with self.assertLogs("dttb", level="ERROR") as cm:
+            t = threading.Thread(target=failing_task)
+            t.start()
+            t.join()
+
+        self.assertTrue(len(cm.output) > 0)
+        self.assertIn("real thread logging error", cm.output[0])
