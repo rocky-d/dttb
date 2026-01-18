@@ -113,22 +113,22 @@ class TestDTTB(unittest.TestCase):
         # Confirm hook changed again
         self.assertNotEqual(sys.excepthook, self.orig_sys_hook)
 
-    @patch("dttb._dt")
-    def test_dt_called(
+    @patch("dttb._stderr_dt")
+    def test_stderr_dt_called(
         self,
-        mock_dt: MagicMock,
+        mock_stderr_dt: MagicMock,
     ) -> None:
-        """Use mock to verify _dt is called correctly."""
+        """Use mock to verify _stderr_dt is called correctly."""
         dttb.apply()
 
         # Test sys hook
         sys.excepthook(ValueError, ValueError("test"), None)
-        self.assertEqual(mock_dt.call_count, 1)
+        self.assertEqual(mock_stderr_dt.call_count, 1)
 
         # Test threading hook
         args = threading.ExceptHookArgs([ValueError, ValueError("t"), None, None])
         threading.excepthook(args)
-        self.assertEqual(mock_dt.call_count, 2)
+        self.assertEqual(mock_stderr_dt.call_count, 2)
 
     def test_real_thread_exception(
         self,
