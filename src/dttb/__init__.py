@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import datetime as dt
 import functools
+import logging
 import sys
 import threading
 from threading import ExceptHookArgs
@@ -20,6 +21,9 @@ __all__ = [
     "reset",
 ]
 
+
+_logger = logging.getLogger(__name__)
+_logger.addHandler(logging.NullHandler())
 
 _sys_excepthook = sys.excepthook
 _threading_excepthook = threading.excepthook
@@ -48,6 +52,10 @@ def _dttb_sys_excepthook(
         exc_value: BaseException,
         exc_traceback: Optional[TracebackType],
     ) -> Any:
+        _logger.error(
+            "An uncaught exception logged by dttb:\n",
+            exc_info=exc_value,
+        )
         _dt()
         return func(exc_type, exc_value, exc_traceback)
 
@@ -61,6 +69,10 @@ def _dttb_threading_excepthook(
     def wrapper(
         args: ExceptHookArgs,
     ) -> object:
+        _logger.error(
+            "An uncaught exception logged by dttb:\n",
+            exc_info=args.exc_value,
+        )
         _dt()
         return func(args)
 
