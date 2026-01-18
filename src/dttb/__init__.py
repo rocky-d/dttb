@@ -43,6 +43,15 @@ def _dt() -> None:
     print(f"[{now}]", file=sys.stderr)
 
 
+def _log_exc(
+    exc_value: Optional[BaseException],
+) -> None:
+    _logger.error(
+        "An uncaught exception logged by dttb:\n",
+        exc_info=exc_value,
+    )
+
+
 def _dttb_sys_excepthook(
     func: _SysExcepthook,
 ) -> _SysExcepthook:
@@ -52,10 +61,7 @@ def _dttb_sys_excepthook(
         exc_value: BaseException,
         exc_traceback: Optional[TracebackType],
     ) -> Any:
-        _logger.error(
-            "An uncaught exception logged by dttb:\n",
-            exc_info=exc_value,
-        )
+        _log_exc(exc_value)
         _dt()
         return func(exc_type, exc_value, exc_traceback)
 
@@ -69,10 +75,7 @@ def _dttb_threading_excepthook(
     def wrapper(
         args: ExceptHookArgs,
     ) -> object:
-        _logger.error(
-            "An uncaught exception logged by dttb:\n",
-            exc_info=args.exc_value,
-        )
+        _log_exc(args.exc_value)
         _dt()
         return func(args)
 
