@@ -31,7 +31,9 @@ pip install dttb
 
 ## Usage
 
-- **`demo1.py`**
+### Apply
+
+**`demo1.py`**
 
 ```python
 import dttb
@@ -49,7 +51,69 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-- **`demo2.py`**
+### Reset
+
+**`demo2.py`**
+
+```python
+import dttb
+
+dttb.apply()
+dttb.reset()
+
+1 / 0
+```
+
+```text
+Traceback (most recent call last):
+  File "demo2.py", line 4, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+```
+
+### With *logging*
+
+**`demo3.py`**
+
+```python
+import dttb
+import logging
+
+dttb_logger = logging.getLogger("dttb")
+dttb_logger.propagate = False
+dttb_logger.setLevel(logging.ERROR)
+file_handler = logging.FileHandler("logging.log")
+file_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s\n%(message)s"))
+dttb_logger.addHandler(file_handler)
+
+dttb.apply()
+
+1 / 0
+```
+
+```text
+[2026-01-19 23:29:35.817684]
+Traceback (most recent call last):
+  File "demo3.py", line 13, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+```
+
+**`logging.log`**
+
+```text
+2026-01-19 23:29:35,817 | ERROR
+[2026-01-19 23:29:35.817684]
+An uncaught exception logged by dttb:
+Traceback (most recent call last):
+  File "demo3.py", line 13, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+```
+
+### With *threading*
+
+**`demo4.py`**
 
 ```python
 import dttb
@@ -82,7 +146,7 @@ Traceback (most recent call last):
     self.run()
   File "/**/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "demo2.py", line 10, in func
+  File "demo4.py", line 10, in func
     seconds / 0
 ZeroDivisionError: division by zero
 [2026-01-15 23:00:04.048362]
@@ -92,14 +156,14 @@ Traceback (most recent call last):
     self.run()
   File "/**/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "demo2.py", line 10, in func
+  File "demo4.py", line 10, in func
     seconds / 0
 ZeroDivisionError: division by zero
 [2026-01-15 23:00:07.055083]
 Traceback (most recent call last):
-  File "demo2.py", line 20, in <module>
+  File "demo4.py", line 20, in <module>
     func(seconds=3)
-  File "demo2.py", line 10, in func
+  File "demo4.py", line 10, in func
     seconds / 0
 ZeroDivisionError: division by zero
 ```
