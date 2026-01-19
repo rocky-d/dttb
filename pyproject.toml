@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "dttb"
-version = "0.2.4"
+version = "0.3.0rc1"
 description = "DateTime TraceBack"
 readme = "README.md"
 license = "MIT"
@@ -34,6 +34,7 @@ Repository = "https://github.com/rocky-d/dttb"
 [dependency-groups]
 dev = [
     "coverage>=7.6.1",
+    "pyyaml>=6.0.3",
     "ruff>=0.14.11",
     "ty>=0.0.11",
     "typing-extensions>=4.13.2",
