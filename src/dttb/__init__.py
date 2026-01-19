@@ -12,14 +12,12 @@ import functools
 import logging
 import sys
 import threading
-from contextlib import contextmanager
 from threading import ExceptHookArgs
 from types import TracebackType
-from typing import Any, Callable, Generator, Optional, Type
+from typing import Any, Callable, Optional, Type
 
 __all__ = [
     "apply",
-    "dttb",
     "reset",
 ]
 
@@ -93,12 +91,3 @@ def apply() -> None:
 def reset() -> None:
     sys.excepthook = _sys_excepthook
     threading.excepthook = _threading_excepthook
-
-
-@contextmanager
-def dttb() -> Generator[None, None, None]:
-    apply()
-    try:
-        yield
-    finally:
-        reset()
