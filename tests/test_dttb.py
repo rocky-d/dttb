@@ -1,3 +1,4 @@
+import datetime
 import io
 import logging
 import sys
@@ -202,3 +203,16 @@ class TestDTTB(unittest.TestCase):
 
         self.assertTrue(len(cm.output) > 0)
         self.assertIn("real thread logging error", cm.output[0])
+
+    def test_timezone_argument(
+        self,
+    ) -> None:
+        """Test if timezone argument is respected."""
+        tz_offset = datetime.timedelta(hours=8)
+        tz = datetime.timezone(tz_offset)
+        dttb.apply(tz=tz)
+
+        sys.excepthook(ValueError, ValueError("tz test"), None)
+
+        output = self.stderr_capture.getvalue()
+        self.assertIn("+08:00", output)
