@@ -31,7 +31,7 @@ pip install dttb
 
 ## Usage
 
-### Apply
+### Applying
 
 **`demo1.py`**
 
@@ -51,7 +51,7 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 ```
 
-### Reset
+### Resetting
 
 **`demo2.py`**
 

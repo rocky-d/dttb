@@ -38,7 +38,7 @@ class TestDTTB(unittest.TestCase):
     def test_apply_changes_hooks(
         self,
     ) -> None:
-        """Test if apply modifies sys and threading excepthook."""
+        """Tests if apply modifies sys and threading excepthook."""
         dttb.apply()
         self.assertNotEqual(sys.excepthook, self.orig_sys_hook)
         self.assertNotEqual(threading.excepthook, self.orig_threading_hook)
@@ -46,7 +46,7 @@ class TestDTTB(unittest.TestCase):
     def test_reset_restores_hooks(
         self,
     ) -> None:
-        """Test if reset restores original hooks."""
+        """Tests if reset restores original hooks."""
         dttb.apply()
         dttb.reset()
         self.assertEqual(sys.excepthook, self.orig_sys_hook)
@@ -55,7 +55,7 @@ class TestDTTB(unittest.TestCase):
     def test_sys_excepthook_output(
         self,
     ) -> None:
-        """Test if sys.excepthook triggers timestamp output."""
+        """Tests if sys.excepthook triggers timestamp output."""
         dttb.apply()
 
         # Invoke current excepthook with simulated exception info
@@ -68,7 +68,7 @@ class TestDTTB(unittest.TestCase):
     def test_threading_excepthook_output(
         self,
     ) -> None:
-        """Test if threading.excepthook triggers timestamp output."""
+        """Tests if threading.excepthook triggers timestamp output."""
         dttb.apply()
 
         # Construct ExceptHookArgs
@@ -85,7 +85,7 @@ class TestDTTB(unittest.TestCase):
     def test_apply_idempotency_structural(
         self,
     ) -> None:
-        """Test structural behavior of multiple apply calls."""
+        """Tests structural behavior of multiple apply calls."""
         dttb.apply()
         hook1 = sys.excepthook
 
@@ -102,7 +102,7 @@ class TestDTTB(unittest.TestCase):
     def test_alternating_apply_reset(
         self,
     ) -> None:
-        """Test alternating usage of apply and reset."""
+        """Tests alternating usage of apply and reset."""
         dttb.apply()
         # Confirm hook changed
         self.assertNotEqual(sys.excepthook, self.orig_sys_hook)
@@ -118,7 +118,7 @@ class TestDTTB(unittest.TestCase):
     def test_real_thread_exception(
         self,
     ) -> None:
-        """Test exception raised in a real separate thread."""
+        """Tests exception raised in a real separate thread."""
         dttb.apply()
 
         def failing_task() -> None:
@@ -137,7 +137,7 @@ class TestDTTB(unittest.TestCase):
     def test_logging_output(
         self,
     ) -> None:
-        """Test if exceptions are logged to the dttb logger."""
+        """Tests if exceptions are logged to the dttb logger."""
         dttb.apply()
 
         # Use assertLogs to verify logging output
@@ -160,7 +160,7 @@ class TestDTTB(unittest.TestCase):
     def test_logger_has_null_handler_by_default(
         self,
     ) -> None:
-        """Verify that the logger has a NullHandler by default to prevent 'No handler found' warnings."""
+        """Verifies that the logger has a NullHandler by default to prevent 'No handler found' warnings."""
         logger = logging.getLogger("dttb")
         # Check if any of the handlers is a NullHandler
         has_null_handler = any(
@@ -173,7 +173,7 @@ class TestDTTB(unittest.TestCase):
         self,
         mock_logger: MagicMock,
     ) -> None:
-        """Verify that logger.error is called with exc_info=True/Exception."""
+        """Verifies that logger.error is called with exc_info=True/Exception."""
         dttb.apply()
 
         exc = ValueError("test exc info")
@@ -190,7 +190,7 @@ class TestDTTB(unittest.TestCase):
     def test_logging_real_thread_exception(
         self,
     ) -> None:
-        """Test if exceptions in real threads are logged to the dttb logger."""
+        """Tests if exceptions in real threads are logged to the dttb logger."""
         dttb.apply()
 
         def failing_task() -> None:
@@ -207,7 +207,7 @@ class TestDTTB(unittest.TestCase):
     def test_timezone_argument(
         self,
     ) -> None:
-        """Test if timezone argument is respected."""
+        """Tests if timezone argument is respected."""
         tz_offset = datetime.timedelta(hours=8)
         tz = datetime.timezone(tz_offset)
         dttb.apply(tz=tz)
