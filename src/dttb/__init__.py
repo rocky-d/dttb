@@ -55,7 +55,7 @@ def _log_dttb(
     exc_value: Optional[BaseException],
 ) -> None:
     _logger.error(
-        f"An uncaught exception logged by dttb:\n[{now}]\n",
+        f"An uncaught exception logged by dttb:\n[{now}]",
         exc_info=exc_value,
     )
 
