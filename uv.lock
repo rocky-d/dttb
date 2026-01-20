@@ -307,7 +307,7 @@ wheels = [
 
 [[package]]
 name = "dttb"
-version = "0.3.0rc1"
+version = "0.3.0rc2"
 source = { editable = "." }
 
 [package.dev-dependencies]
