@@ -83,7 +83,7 @@ dttb_logger = logging.getLogger("dttb")
 dttb_logger.propagate = False
 dttb_logger.setLevel(logging.ERROR)
 file_handler = logging.FileHandler("logging.log")
-file_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s\n%(message)s"))
+file_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(message)s"))
 dttb_logger.addHandler(file_handler)
 
 dttb.apply()
@@ -101,10 +101,9 @@ ZeroDivisionError: division by zero
 
 **`logging.log`**
 
-```text
-2026-01-19 23:29:35,817 | ERROR
+```log
+2026-01-19 23:29:35,817 | ERROR | An uncaught exception logged by dttb:
 [2026-01-19 23:29:35.817684]
-An uncaught exception logged by dttb:
 Traceback (most recent call last):
   File "demo3.py", line 13, in <module>
     1 / 0
