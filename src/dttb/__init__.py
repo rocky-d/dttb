@@ -38,15 +38,20 @@ _ThreadingExcepthook = Callable[
 ]
 
 
-def _stderr_dt() -> None:
-    now = dt.datetime.now()
+def _now() -> dt.datetime:
+    return dt.datetime.now()
+
+
+def _print_dt(
+    now: dt.datetime,
+) -> None:
     print(f"[{now}]", file=sys.stderr)
 
 
 def _log_dttb(
+    now: dt.datetime,
     exc_value: Optional[BaseException],
 ) -> None:
-    now = dt.datetime.now()
     _logger.error(
         f"[{now}]\nAn uncaught exception logged by dttb:",
         exc_info=exc_value,
@@ -62,8 +67,9 @@ def _dttb_sys_excepthook(
         exc_value: BaseException,
         exc_traceback: Optional[TracebackType],
     ) -> Any:
-        _log_dttb(exc_value)
-        _stderr_dt()
+        now = _now()
+        _log_dttb(now, exc_value)
+        _print_dt(now)
         return func(exc_type, exc_value, exc_traceback)
 
     return wrapper
@@ -76,8 +82,9 @@ def _dttb_threading_excepthook(
     def wrapper(
         args: ExceptHookArgs,
     ) -> object:
-        _log_dttb(args.exc_value)
-        _stderr_dt()
+        now = _now()
+        _log_dttb(now, args.exc_value)
+        _print_dt(now)
         return func(args)
 
     return wrapper
