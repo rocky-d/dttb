@@ -91,10 +91,18 @@ def _dttb_threading_excepthook(
 
 
 def apply() -> None:
+    """
+    Apply attaching datetime to exception traceback.
+
+    This also supports logging and threading if involved.
+    """
     sys.excepthook = _dttb_sys_excepthook(_sys_excepthook)
     threading.excepthook = _dttb_threading_excepthook(_threading_excepthook)
 
 
 def reset() -> None:
+    """
+    Reset to the default exception traceback.
+    """
     sys.excepthook = _sys_excepthook
     threading.excepthook = _threading_excepthook
