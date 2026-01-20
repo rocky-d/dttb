@@ -105,18 +105,19 @@ def _dttb_threading_excepthook(
 def apply(
     tz: Optional[dt.tzinfo] = None,
 ) -> None:
-    """
-    Apply attaching datetime to exception traceback.
+    """Applies attaching datetime to exception traceback.
 
     This also supports logging and threading if involved.
+
+    Args:
+        tz: An optional `datetime.tzinfo` object used to determine the timezone of the
+            timestamp. If `None` or not given, the local timezone is used.
     """
     sys.excepthook = _dttb_sys_excepthook(tz=tz)(_sys_excepthook)
     threading.excepthook = _dttb_threading_excepthook(tz=tz)(_threading_excepthook)
 
 
 def reset() -> None:
-    """
-    Reset to the default exception traceback.
-    """
+    """Resets to the default exception traceback."""
     sys.excepthook = _sys_excepthook
     threading.excepthook = _threading_excepthook
