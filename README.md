@@ -166,3 +166,24 @@ Traceback (most recent call last):
     seconds / 0
 ZeroDivisionError: division by zero
 ```
+
+### Specifying Timezone
+
+**`demo5.py`**
+
+```python
+import datetime as dt
+import dttb
+
+dttb.apply(tz=dt.timezone.utc)
+
+1 / 0
+```
+
+```text
+[2026-01-21 02:40:53.353001+00:00]
+Traceback (most recent call last):
+  File "demo5.py", line 6, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+```
