@@ -15,6 +15,10 @@
 
 **D**ate**T**ime **T**race**B**ack
 
+- [Homepage](https://pypi.org/project/dttb/)
+- [Repository](https://github.com/rocky-d/dttb)
+- [Documentation](https://rocky-d.github.io/dttb/)
+
 ---
 
 A lightweight Python package that attaches timestamps to exception tracebacks, making it easier to debug and correlate errors with logs.

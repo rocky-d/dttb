@@ -1,8 +1,9 @@
 """
 DateTime TraceBack
 
-PyPI: https://pypi.org/project/dttb/
-GitHub: https://github.com/rocky-d/dttb
+- [Homepage](https://pypi.org/project/dttb/)
+- [Repository](https://github.com/rocky-d/dttb)
+- [Documentation](https://rocky-d.github.io/dttb/)
 """
 
 from __future__ import annotations
