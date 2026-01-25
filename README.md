@@ -141,20 +141,14 @@ func(seconds=3)
 [2026-01-15 23:00:03.048290]
 Exception in thread Thread-1:
 Traceback (most recent call last):
-  File "/**/threading.py", line 932, in _bootstrap_inner
-    self.run()
-  File "/**/threading.py", line 870, in run
-    self._target(*self._args, **self._kwargs)
+  ...
   File "demo4.py", line 10, in func
     seconds / 0
 ZeroDivisionError: division by zero
 [2026-01-15 23:00:04.048362]
 Exception in thread Thread-2:
 Traceback (most recent call last):
-  File "/**/threading.py", line 932, in _bootstrap_inner
-    self.run()
-  File "/**/threading.py", line 870, in run
-    self._target(*self._args, **self._kwargs)
+  ...
   File "demo4.py", line 10, in func
     seconds / 0
 ZeroDivisionError: division by zero
