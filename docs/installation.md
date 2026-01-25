@@ -1,16 +1,14 @@
 # Installation
 
-## Requirements
-
 - Python >= 3.8
 
-## Using uv
+## uv
 
 ```sh
 uv add dttb
 ```
 
-## Using pip
+## pip
 
 ```sh
 pip install dttb

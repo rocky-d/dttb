@@ -17,13 +17,15 @@
 
 ## Installation
 
-- **uv**
+- Python >= 3.8
+
+### uv
 
 ```sh
 uv add dttb
 ```
 
-- **pip**
+### pip
 
 ```sh
 pip install dttb
