@@ -13,5 +13,6 @@ logging.yml
 __pycache__/
 dist/
 logs/
+site/
 temp/
 tmp/
