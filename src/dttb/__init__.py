@@ -15,9 +15,11 @@ import sys
 import threading
 from threading import ExceptHookArgs
 from types import TracebackType
-from typing import Any, Callable, Optional, Type
+from typing import Any, Callable, NamedTuple, Optional, Type
 
 __all__ = [
+    "Callback",
+    "CallbackArgs",
     "apply",
     "reset",
 ]
@@ -37,6 +39,17 @@ _ThreadingExcepthook = Callable[
     [ExceptHookArgs],
     object,
 ]
+
+
+class CallbackArgs(NamedTuple):
+    now: dt.datetime
+    exc_type: Type[BaseException]
+    exc_value: Optional[BaseException]
+    exc_traceback: Optional[TracebackType]
+    thread: Optional[threading.Thread]
+
+
+Callback = Callable[[CallbackArgs], Any]
 
 
 def _now(
@@ -62,12 +75,14 @@ def _log_dttb(
 
 
 def _dttb_sys_excepthook(
+    *,
     tz: Optional[dt.tzinfo] = None,
+    callback: Optional[Callback] = None,
 ) -> Callable[[_SysExcepthook], _SysExcepthook]:
     def decorator(
-        func: _SysExcepthook,
+        excepthook: _SysExcepthook,
     ) -> _SysExcepthook:
-        @functools.wraps(func)
+        @functools.wraps(excepthook)
         def wrapper(
             exc_type: Type[BaseException],
             exc_value: BaseException,
@@ -76,7 +91,18 @@ def _dttb_sys_excepthook(
             now = _now(tz=tz)
             _log_dttb(now, exc_value)
             _print_dt(now)
-            return func(exc_type, exc_value, exc_traceback)
+            result = excepthook(exc_type, exc_value, exc_traceback)
+            if callback is not None:
+                callback(
+                    CallbackArgs(
+                        now,
+                        exc_type,
+                        exc_value,
+                        exc_traceback,
+                        None,
+                    ),
+                )
+            return result
 
         return wrapper
 
@@ -84,19 +110,32 @@ def _dttb_sys_excepthook(
 
 
 def _dttb_threading_excepthook(
+    *,
     tz: Optional[dt.tzinfo] = None,
+    callback: Optional[Callback] = None,
 ) -> Callable[[_ThreadingExcepthook], _ThreadingExcepthook]:
     def decorator(
-        func: _ThreadingExcepthook,
+        excepthook: _ThreadingExcepthook,
     ) -> _ThreadingExcepthook:
-        @functools.wraps(func)
+        @functools.wraps(excepthook)
         def wrapper(
             args: ExceptHookArgs,
         ) -> object:
             now = _now(tz=tz)
             _log_dttb(now, args.exc_value)
             _print_dt(now)
-            return func(args)
+            result = excepthook(args)
+            if callback is not None:
+                callback(
+                    CallbackArgs(
+                        now,
+                        args.exc_type,
+                        args.exc_value,
+                        args.exc_traceback,
+                        args.thread,
+                    ),
+                )
+            return result
 
         return wrapper
 
@@ -104,7 +143,9 @@ def _dttb_threading_excepthook(
 
 
 def apply(
+    *,
     tz: Optional[dt.tzinfo] = None,
+    callback: Optional[Callback] = None,
 ) -> None:
     """Applies attaching datetime to exception traceback.
 
@@ -113,9 +154,17 @@ def apply(
     Args:
         tz: An optional `datetime.tzinfo` object used to determine the timezone of the
             timestamp. If `None` or not given, the local timezone is used.
+        callback: An optional `Callback` object that is called with a `CallbackArgs`
+            object as its only argument whenever an uncaught exception occurs.
     """
-    sys.excepthook = _dttb_sys_excepthook(tz=tz)(_sys_excepthook)
-    threading.excepthook = _dttb_threading_excepthook(tz=tz)(_threading_excepthook)
+    sys.excepthook = _dttb_sys_excepthook(
+        tz=tz,
+        callback=callback,
+    )(_sys_excepthook)
+    threading.excepthook = _dttb_threading_excepthook(
+        tz=tz,
+        callback=callback,
+    )(_threading_excepthook)
 
 
 def reset() -> None:
