@@ -42,6 +42,17 @@ _ThreadingExcepthook = Callable[
 
 
 class CallbackArgs(NamedTuple):
+    """Arguments passed to the callback function when an uncaught exception occurs.
+
+    Attributes:
+        now: The timestamp when the exception was caught.
+        exc_type: The type of the exception.
+        exc_value: The exception instance, or `None` if not available.
+        exc_traceback: The traceback object, or `None` if not available.
+        thread: The thread in which the exception occurred, or `None` if it occurred in
+            the main thread.
+    """
+
     now: dt.datetime
     exc_type: Type[BaseException]
     exc_value: Optional[BaseException]
