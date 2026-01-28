@@ -216,3 +216,61 @@ class TestDTTB(unittest.TestCase):
 
         output = self.stderr_capture.getvalue()
         self.assertIn("+08:00", output)
+
+    def test_callback_sys_excepthook(
+        self,
+    ) -> None:
+        """Tests if callback is called with correct args for sys.excepthook."""
+        callback_args_list = []
+
+        def callback(
+            args: dttb.CallbackArgs,
+        ) -> None:
+            callback_args_list.append(args)
+
+        dttb.apply(callback=callback)
+
+        exc = ValueError("callback test")
+        sys.excepthook(ValueError, exc, None)
+
+        # Verify callback was called exactly once
+        self.assertEqual(len(callback_args_list), 1)
+
+        # Verify CallbackArgs contents
+        args = callback_args_list[0]
+        self.assertIsInstance(args.now, dt.datetime)
+        self.assertEqual(args.exc_type, ValueError)
+        self.assertEqual(args.exc_value, exc)
+        self.assertIsNone(args.exc_traceback)
+        self.assertIsNone(args.thread)
+
+    def test_callback_threading_excepthook(
+        self,
+    ) -> None:
+        """Tests if callback is called with correct args for threading.excepthook."""
+        callback_args_list: list[dttb.CallbackArgs] = []
+
+        def callback(
+            args: dttb.CallbackArgs,
+        ) -> None:
+            callback_args_list.append(args)
+
+        dttb.apply(callback=callback)
+
+        def failing_task() -> None:
+            raise ValueError("thread callback test")
+
+        t = threading.Thread(target=failing_task)
+        t.start()
+        t.join()
+
+        # Verify callback was called exactly once
+        self.assertEqual(len(callback_args_list), 1)
+
+        # Verify CallbackArgs contents
+        args = callback_args_list[0]
+        self.assertIsInstance(args.now, dt.datetime)
+        self.assertEqual(args.exc_type, ValueError)
+        self.assertIsInstance(args.exc_value, ValueError)
+        self.assertIsNotNone(args.exc_traceback)
+        self.assertEqual(args.thread, t)
