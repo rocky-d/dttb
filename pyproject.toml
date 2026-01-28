@@ -4,12 +4,12 @@ build-backend = "uv_build"
 
 [project]
 name = "dttb"
-version = "0.3.1.post4"
+version = "0.3.2rc1"
 description = "DateTime TraceBack"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{ name = "Rocky Haotian Du", email = "rocky_d@zohomail.com" }]
+authors = [{ name = "Rocky Haotian Du", email = "rocky_d@yeah.net" }]
 requires-python = ">=3.8"
 classifiers = [
     "Development Status :: 4 - Beta",
