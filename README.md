@@ -19,6 +19,27 @@
 - [Repository](https://github.com/rocky-d/dttb)
 - [Documentation](https://rocky-d.github.io/dttb/)
 
+---
+
+A lightweight Python package that attaches timestamps to exception tracebacks, making it easier to debug and correlate errors with logs.
+
+❌ **Before**:
+
+```text
+Traceback (most recent call last):
+  ...
+Error: something wrong
+```
+
+✅ **After**:
+
+```text
+[2026-01-28 14:30:15.123456+08:00]
+Traceback (most recent call last):
+  ...
+Error: something wrong
+```
+
 ## Installation
 
 - Python >= 3.8
