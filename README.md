@@ -208,3 +208,35 @@ Traceback (most recent call last):
     1 / 0
 ZeroDivisionError: division by zero
 ```
+
+### Setting Callback
+
+**`demo6.py`**
+
+```python
+import dttb
+
+
+def callback(args: dttb.CallbackArgs) -> None:
+    print(f"[callback] {args.now = }")
+    print(f"[callback] {args.exc_type = }")
+    print(f"[callback] {args.exc_value = }")
+    print(f"[callback] {args.thread = } (None indicates the 'MainThread')")
+
+
+dttb.apply(callback=callback)
+
+1 / 0
+```
+
+```text
+[2026-01-29 10:31:29.469555]
+Traceback (most recent call last):
+  File "demo6.py", line 13, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+[callback] args.now = datetime.datetime(2026, 1, 29, 10, 31, 29, 469555)
+[callback] args.exc_type = <class 'ZeroDivisionError'>
+[callback] args.exc_value = ZeroDivisionError('division by zero')
+[callback] args.thread = None (None indicates the 'MainThread')
+```
