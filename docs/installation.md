@@ -13,3 +13,11 @@ uv add dttb
 ```sh
 pip install dttb
 ```
+
+## Agent Skills
+
+Put
+[dttb/SKILL.md](.github/skills/dttb/SKILL.md)
+to
+`.github/skills/dttb/SKILL.md`
+in your project for AI agents.
