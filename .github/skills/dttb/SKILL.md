@@ -5,7 +5,7 @@ description: Guide for using dttb, a Python package that attaches timestamps to 
 
 # dttb
 
-`dttb` (DateTime TraceBack) is a lightweight Python package that modifies exception handling to verify *when* an error occurred by attaching a timestamp to the traceback output.
+`dttb` (DateTime TraceBack) is a lightweight Python package that modifies exception handling to verify when an error occurred by attaching a timestamp to the traceback output.
 
 ## When to use dttb
 
@@ -34,6 +34,10 @@ Traceback (most recent call last):
   ...
 Error: something wrong
 ```
+
+## Multi-threading Support
+
+`dttb.apply()` automatically hooks both `sys.excepthook` and `threading.excepthook`, so uncaught exceptions in any thread are timestamped without additional configuration.
 
 ## Advanced Configuration
 
