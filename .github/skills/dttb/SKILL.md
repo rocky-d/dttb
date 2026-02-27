@@ -66,11 +66,11 @@ dttb.apply(callback=my_callback)
 ```
 
 The callback receives a `CallbackArgs` object containing:
-- `now`: The timestamp of the exception.
-- `exc_type`: The exception class.
-- `exc_value`: The exception instance.
-- `traceback`: The traceback object.
-- `thread`: The thread object (or `None` for main thread).
+- now: The timestamp when the exception was caught.
+- exc_type: The type of the exception.
+- exc_value: The exception instance, or `None` if not available.
+- exc_traceback: The traceback object, or `None` if not available.
+- thread: The thread in which the exception occurred, or `None` if it occurred in the main thread.
 
 ### Resetting
 
