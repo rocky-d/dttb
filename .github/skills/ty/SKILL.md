@@ -1,7 +1,6 @@
 ---
 name: ty
-description:
-  Guide for using ty, the extremely fast Python type checker and language server. Use this when type checking Python code or setting up type checking in Python projects.
+description: Guide for using ty, the extremely fast Python type checker and language server. Use this when type checking Python code or setting up type checking in Python projects.
 ---
 
 # ty
