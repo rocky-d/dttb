@@ -1,5 +1,4 @@
-"""
-DateTime TraceBack
+"""DateTime TraceBack
 
 - [Homepage](https://pypi.org/project/dttb/)
 - [Repository](https://github.com/rocky-d/dttb)
