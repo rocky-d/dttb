@@ -9,7 +9,7 @@
 - Package manager: [uv](https://github.com/astral-sh/uv) - always use `uv run` for development commands
 - Linter/Formatter: [ruff](https://github.com/astral-sh/ruff) - configured in pyproject.toml
 - Type checker: [ty](https://github.com/astral-sh/ty) - use `uv run ty check`
-- Test framework: unittest
+- Test framework: pytest
 - Build backend: uv_build
 
 ## Code Conventions
